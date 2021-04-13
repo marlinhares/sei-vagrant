@@ -13,6 +13,7 @@ ENV TERM xterm
 
 # Arquivos de instalação de componentes do SEI
 COPY assets/msttcore-fonts-2.0-3.noarch.rpm /tmp
+COPY assets/uploadprogress.tgz /tmp
 COPY assets/oracle/oracle-instantclient11.2-basic-11.2.0.4.0-1.x86_64.rpm /tmp/
 COPY assets/oracle/oracle-instantclient11.2-devel-11.2.0.4.0-1.x86_64.rpm /tmp/
 COPY assets/oracle/oracle-instantclient11.2-sqlplus-11.2.0.4.0-1.x86_64.rpm /tmp/

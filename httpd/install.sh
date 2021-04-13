@@ -1,31 +1,49 @@
 #!/usr/bin/env bash
 
-# Instalação dos componentes básicos do servidor web apache
-yum -y install epel-release
-rpm -Uvh http://mirror.webtatic.com/yum/el7/webtatic-release.rpm
 yum -y  update
-yum -y install epel-release libmcrypt httpd24u mysql56u memcached openssl wget curl unzip gcc java-1.8.0-openjdk libxml2 crontabs mysql
+
+# Instalação dos componentes básicos do servidor web apache
+yum -y install httpd memcached openssl wget curl unzip gcc java-1.8.0-openjdk libxml2 cabextract xorg-x11-font-utils fontconfig mod_ssl
+
+
+# Instalação dos componentes básicos do servidor web apache
+yum -y install epel-release  yum-utils
+yum install -y http://rpms.remirepo.net/enterprise/remi-release-7.rpm
+yum-config-manager --enable remi-php73
+yum -y  update
+yum -y install epel-release libmcrypt gcc libxml2 crontabs 
 
 # Instalação do PHP e demais extenções necessárias para o projeto
-yum -y install php56w php56w-common php56w-cli php56w-pear php56w-bcmath php56w-gd php56w-gmp php56w-imap php56w-intl php56w-ldap php56w-mbstring php56w-mysqli \
-    php56w-odbc php56w-pdo php56w-pecl-apc php56w-pspell php56w-zlib php56w-snmp php56w-soap php56w-xml php56w-xmlrpc php56w-zts php56w-devel \
-    php56w-pecl-apc-devel php56w-pecl-memcache php56w-calendar php56w-shmop php56w-intl php56w-mcrypt php56w-pecl-xdebug
+yum -y install php php-common php-cli php-pear php-bcmath php-gd php-gmp php-imap php-intl php-ldap php-mbstring php-mysqli \
+    php-odbc php-pdo php-pecl-apcu php-pspell php-zlib php-snmp php-soap php-xml php-xmlrpc php-zts php-devel \
+    php-pecl-apcu-devel php-pecl-memcache php-calendar php-shmop php-intl php-mcrypt \
+    gearmand libgearman libgearman-devel php-pecl-gearman vixie-cron \
+    freetds freetds-devel php-mssql \
+    git nc gearmand libgearman-dev libgearman-devel mysql
 
 # Configuração do pacote de línguas pt_BR
 localedef pt_BR -i pt_BR -f ISO-8859-1
 
 # Instalação do componentes UploadProgress
-pecl install uploadprogress-1.0.3.1
-echo "extension=uploadprogress.so" >> /etc/php.d/uploadprogress.ini
+# pecl install uploadprogress-1.0.3.1
+# echo "extension=uploadprogress.so" >> /etc/php.d/uploadprogress.ini
+
+cd /tmp
+tar -zxvf uploadprogress.tgz
+cd uploadprogress
+phpize
+./configure --enable-uploadprogress
+make
+make install
+echo "extension=uploadprogress.so" > /etc/php.d/uploadprogress.ini
+cd -
 
 # Instalação de pacote de fontes do windows
 rpm -Uvh /tmp/msttcore-fonts-2.0-3.noarch.rpm
 
 # Instalação dos componentes de conexão do Oracle (Oracle Instant Client)
-bash /tmp/install_oracle.sh
+ bash /tmp/install_oracle.sh
 
-# Instalação dos componentes de conexão do SQL Server
-yum -y install freetds freetds-devel php56w-mssql
 
 # Configuração de permissão do diretório de arquivos
 mkdir -p /var/sei/arquivos
