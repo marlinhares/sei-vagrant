@@ -27,9 +27,9 @@ build-containers: clean
 	docker tag sei3_mysql-5.7 processoeletronico/vagrant-sei4_mysql5.7:latest
 	docker tag sei3_mysql-5.7 processoeletronico/vagrant-sei4_mysql5.7:$(VERSAO_CONTAINERS)
 
-	docker build -t sei3_oracle-11g oracle/
-	docker tag  sei3_oracle-11g processoeletronico/vagrant-sei4_oracle:latest
-	docker tag  sei3_oracle-11g processoeletronico/vagrant-sei4_oracle:$(VERSAO_CONTAINERS)
+	#docker build -t sei3_oracle-11g oracle/
+	#docker tag  sei3_oracle-11g processoeletronico/vagrant-sei4_oracle:latest
+	#docker tag  sei3_oracle-11g processoeletronico/vagrant-sei4_oracle:$(VERSAO_CONTAINERS)
 
 	docker build -t sei3_httpd-2.4 httpd/
 	docker tag sei3_httpd-2.4 processoeletronico/vagrant-sei4_httpd:latest
@@ -50,7 +50,7 @@ build-containers: clean
 	docker push processoeletronico/vagrant-sei4_solr:$(VERSAO_CONTAINERS)
 	docker push processoeletronico/vagrant-sei4_jod:$(VERSAO_CONTAINERS)
 	docker push processoeletronico/vagrant-sei4_mysql5.7:$(VERSAO_CONTAINERS)
-	docker push processoeletronico/vagrant-sei4_oracle:$(VERSAO_CONTAINERS)
+	#docker push processoeletronico/vagrant-sei4_oracle:$(VERSAO_CONTAINERS)
 	docker push processoeletronico/vagrant-sei4_httpd:$(VERSAO_CONTAINERS)
 	docker push processoeletronico/vagrant-sei4_mailcatcher:$(VERSAO_CONTAINERS)
 	docker push processoeletronico/vagrant-sei4_memcached:$(VERSAO_CONTAINERS)
@@ -59,7 +59,7 @@ build-containers: clean
 	docker push processoeletronico/vagrant-sei4_solr:latest
 	docker push processoeletronico/vagrant-sei4_jod:latest
 	docker push processoeletronico/vagrant-sei4_mysql5.7:latest
-	docker push processoeletronico/vagrant-sei4_oracle:latest
+	#docker push processoeletronico/vagrant-sei4_oracle:latest
 	docker push processoeletronico/vagrant-sei4_httpd:latest
 	docker push processoeletronico/vagrant-sei4_mailcatcher:latest
 	docker push processoeletronico/vagrant-sei4_memcached:latest

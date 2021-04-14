@@ -40,7 +40,7 @@ services:
     depends_on: 
       - database
     volumes:
-      - ./FontesSEI:/opt
+      - /mnt/sei/src:/opt
     environment:
       - XDEBUG_CONFIG="idekey=default remote_enable=1 remote_mode=req remote_port=9000 remote_host=10.0.2.2 remote_connect_back=1"
       - APP_SIP_CHAVE_ACESSO=${APP_SIP_CHAVE_ACESSO}
