@@ -1,38 +1,38 @@
 version: '2'
 services:
   jod:  
-    image: guilhermeadc/sei3_jod-2.2.2:${ENVIRONMENT_VERSION}
+    image: processoeletronico/vagrant-sei4_jod:${ENVIRONMENT_VERSION}
     container_name: jod
 
   smtp:
-    image: guilhermeadc/sei3_mailcatcher:${ENVIRONMENT_VERSION}
+    image: processoeletronico/vagrant-sei4_mailcatcher:${ENVIRONMENT_VERSION}
     container_name: smtp
     ports:
       - "1080:1080"
 
   memcached:
-    image: guilhermeadc/sei3_memcached:${ENVIRONMENT_VERSION}
+    image: processoeletronico/vagrant-sei4_memcached:${ENVIRONMENT_VERSION}
     container_name: memcached
     ports:
       - "11211:11211"
 
   database:
-    image: ${DATABASE_IMAGE}:${ENVIRONMENT_VERSION}
+    image: ${DATABASE_IMAGE}
     container_name: ${DATABASE_HOST}
     ports:
       - "${DATABASE_PORT}:${DATABASE_PORT}"
     volumes:
       - ${DATABASE_HOST}:${DATABASE_DATA_DIR}
-      - /var/sei/${DATABASE_HOST}/backup:/backup
+      #- /var/sei/${DATABASE_HOST}/backup:/backup
 
   solr:
-    image: guilhermeadc/sei3_solr-6.1:${ENVIRONMENT_VERSION}
+    image: processoeletronico/vagrant-sei4_solr:${ENVIRONMENT_VERSION}
     container_name: solr
     ports:
       - "8983:8983"
 
   http:
-    image: guilhermeadc/sei3_httpd-2.4:${ENVIRONMENT_VERSION}
+    image: processoeletronico/vagrant-sei4_httpd:${ENVIRONMENT_VERSION}
     container_name: http
     restart: on-failure
     ports:
@@ -40,9 +40,11 @@ services:
     depends_on: 
       - database
     volumes:
-      - /mnt/sei/src:/opt
+      - ./FontesSEI:/opt
     environment:
       - XDEBUG_CONFIG="idekey=default remote_enable=1 remote_mode=req remote_port=9000 remote_host=10.0.2.2 remote_connect_back=1"
+      - APP_SIP_CHAVE_ACESSO=${APP_SIP_CHAVE_ACESSO}
+      - APP_SEI_CHAVE_ACESSO=${APP_SEI_CHAVE_ACESSO}
       - HOST_URL=http://localhost:8000
       - DATABASE_TYPE=${DATABASE_TYPE}
       - DATABASE_HOST=${DATABASE_HOST}
