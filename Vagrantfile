@@ -35,7 +35,7 @@ Vagrant.configure(2) do |config|
   end
   
   # Box do vagrant contendo o ambiente de desenvolvimento do SEI
-  config.vm.box = "{{.BoxName}}"
+  config.vm.box = "sei-vagrant"
   config.disksize.size = "100GB"
   config.vbguest.auto_update = true
   config.vbguest.no_remote = false
